@@ -16,61 +16,34 @@
 */
 
 ; (() => {
-    function getTotalX(a: number[], b: number[]) {
+    function getTotalX(a: number[], b: number[]): number {
 
-        let factorsa: number[] = []
-        let possibleA: number[] = []
         let result: number = 0
 
-        for (let i = 0; i < a.length; i++) {
-            for (let j = 1; j <= a[i]; j++) {
-                if (a[i] % j === 0) {
-                    if (!factorsa.includes(j)) {
-                        factorsa.push(j)
-                    }
-                }
-            }
-        }
+        let a_min: number = Math.min(...a)
+        let b_max: number = Math.max(...b)
 
-        for (let i = 0; i < factorsa.length; i++) {
-            for (let j = 0; j < factorsa.length; j++) {
-                if (!possibleA.includes(factorsa[i] * factorsa[j])) {
-                    possibleA.push(factorsa[i] * factorsa[j])
-                }
-            }
-        }
-
-        let temp: number[] = [...possibleA]
-        for (let i = 0; i < temp.length; i++) {
-            for (let j = 0; j < temp.length; j++) {
-                if (!possibleA.includes(temp[i] * temp[j])) {
-                    possibleA.push(temp[i] * temp[j])
-                }
-            }
-        }
-        console.log(possibleA);
-        for (let i = 0; i < possibleA.length; i++) {
+        for (let i = a_min; i <= b_max; i++) {
             let flag: boolean = true
             for (let j = 0; j < a.length; j++) {
-                if (!(possibleA[i] % a[j] === 0)) {
+                if (!(i % a[j] === 0)) {
                     flag = false
                 }
             }
             for (let j = 0; j < b.length; j++) {
-                if (!(b[j] % possibleA[i] === 0)) {
+                if (!(b[j] % i === 0)) {
                     flag = false
                 }
             }
-
-            if (flag === true && Math.max(...a) <= possibleA[i]) {
+            if (flag) {
                 result++
-                console.log(possibleA[i]);
             }
         }
+
         return result
     }
 
-    const arr: number[] = [2, 3, 6] // 
+    const arr: number[] = [2, 3, 6] 
     const brr: number[] = [42, 84]
 
     const total = getTotalX(arr, brr);
