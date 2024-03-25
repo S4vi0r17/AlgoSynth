@@ -18,14 +18,36 @@
 
 ; (() => {
     function birthday(s: number[], d: number, m: number): number {
-        
 
+        let result: number = 0
+        let sum: number = 0
 
-        return 
+        for (let i = 0; i < s.length; i++) {
+            console.log('--', s[i]);
+            sum = s[i]
+            for (let j = i + 1; j < i + m; j++) {
+                if (j >= s.length) {
+                    // console.log(s[s.length % j]);
+                    // sum += s[s.length % j]
+                } else {
+                    console.log(s[j]);
+                    sum += s[j]
+                }
+            }
+            if (sum === d) {
+                result++
+            }
+            sum = 0
+        }
+
+        return result
     }
 
-    const s: number[] = [2, 2, 1, 3, 2]
-    const d: number = 4
+    // const s: number[] = [2, 2, 1, 3, 2]
+    // const d: number = 4
+    // const m: number = 2
+    const s: number[] = [1, 2, 1, 3, 2]
+    const d: number = 3
     const m: number = 2
     const result: number = birthday(s, d, m);
     console.log(result);
